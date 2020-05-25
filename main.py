@@ -112,7 +112,11 @@ async def ketabonline(message: types.Message):
                                 print()
 
                                 filename = os.path.basename(down_link)
-                                r = requests.get(url=down_link, proxies=proxies, allow_redirects=True)
+                                try:
+                                    r = requests.get(url=down_link, proxies=proxies, allow_redirects=True)
+                                except requests.exceptions.ConnectionError:
+                                    r = requests.get(url=down_link, proxies=proxies, allow_redirects=True)
+
                                 open(f"downloaded/{filename}", "wb").write(r.content)
 
                                 await bot.send_photo(chat_id=CHANNEL, photo=photo_url, caption=photo_cap)
