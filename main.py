@@ -67,7 +67,7 @@ async def ketabonline(message: types.Message):
                     header = three.find('header', class_='page-header').h2.text
                     await bot.send_message(chat_id=CHANNEL, text=header)
                     count += 1
-                    await asyncio.sleep(10)
+                    await asyncio.sleep(5)
                     continue
                 elif (count % 3) == 2:
                     print(f"{count} one, thats it, im on it...")
@@ -77,7 +77,7 @@ async def ketabonline(message: types.Message):
                         cat = divs.h3.text
                         url = divs.a['href']
                         await bot.send_message(chat_id=CHANNEL, text=f'<a href="{url}">{cat}</a>', disable_web_page_preview=True, parse_mode='Html')
-                        await asyncio.sleep(20)
+                        await asyncio.sleep(10)
 
                         try:
                             breq = requests.get(url=url, proxies=proxies, headers={'User-Agent': useragent}).text
@@ -91,7 +91,7 @@ async def ketabonline(message: types.Message):
                         for divs in archive:
                             try:
                                 book_url = divs.a['href']
-                                await asyncio.sleep(20)
+                                await asyncio.sleep(10)
 
                                 try:
                                     creq = requests.get(url=book_url, proxies=proxies, headers={'User-Agent': useragent}).text
@@ -112,18 +112,15 @@ async def ketabonline(message: types.Message):
                                 print()
 
                                 filename = os.path.basename(down_link)
-                                try:
-                                    r = requests.get(url=down_link, proxies=proxies, allow_redirects=True)
-                                except requests.exceptions.ConnectionError:
-                                    r = requests.get(url=down_link, proxies=proxies, allow_redirects=True)
+                                r = requests.get(url=down_link, allow_redirects=True)
 
                                 open(f"downloaded/{filename}", "wb").write(r.content)
 
                                 await bot.send_photo(chat_id=CHANNEL, photo=photo_url, caption=photo_cap)
-                                await asyncio.sleep(10)
+                                await asyncio.sleep(5)
                                 file = types.InputFile(f"downloaded/{filename}")
                                 await bot.send_document(chat_id=CHANNEL, document=file)
-                                await asyncio.sleep(40)
+                                await asyncio.sleep(20)
                                 await msg.edit_text(f"{sents} Book sent...")
                                 sents += 1
                             except Exception as e:
