@@ -112,7 +112,8 @@ async def ketabonline(message: types.Message):
                                 print()
 
                                 filename = os.path.basename(down_link)
-                                wget.download(down_link, f"downloaded/{filename}")
+                                r = requests.get(url=down_link, proxies=proxies, allow_redirects=True)
+                                open(f"downloaded/{filename}", "wb").write(r.content)
 
                                 await bot.send_photo(chat_id=CHANNEL, photo=photo_url, caption=photo_cap)
                                 await asyncio.sleep(10)
