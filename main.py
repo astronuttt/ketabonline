@@ -47,7 +47,7 @@ async def ketabonline(message: types.Message):
         await asyncio.sleep(5)
         headers = ua.chrome
         try:
-            req = requests.get(url="https://ketaabonline.com/", proxies=proxies, headers={'User-Agent': headers}).text
+            req = requests.get(url="https://ketaabonline.com/", headers={'User-Agent': headers}).text
         except requests.exceptions.ConnectionError:
             req = requests.get(url="https://ketaabonline.com/", proxies=proxies1, headers={'User-Agent': headers}).text
         soup = BeautifulSoup(req, 'lxml')
@@ -80,7 +80,7 @@ async def ketabonline(message: types.Message):
                         await asyncio.sleep(10)
 
                         try:
-                            breq = requests.get(url=url, proxies=proxies, headers={'User-Agent': useragent}).text
+                            breq = requests.get(url=url, headers={'User-Agent': useragent}).text
                         except requests.exceptions.ConnectionError:
                             breq = requests.get(url=url, proxies=proxies1, headers={'User-Agent': useragent}).text
                         bsoup = BeautifulSoup(breq, 'lxml')
@@ -94,7 +94,7 @@ async def ketabonline(message: types.Message):
                                 await asyncio.sleep(10)
 
                                 try:
-                                    creq = requests.get(url=book_url, proxies=proxies, headers={'User-Agent': useragent}).text
+                                    creq = requests.get(url=book_url, headers={'User-Agent': useragent}).text
                                 except requests.exceptions.ConnectionError:
                                     creq = requests.get(url=book_url, proxies=proxies1, headers={'User-Agent': useragent}).text
                                 csoup = BeautifulSoup(creq, 'lxml')
